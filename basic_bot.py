@@ -1,5 +1,10 @@
+import os
+
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext, Application, ContextTypes
+from dotenv import load_dotenv
+
+load_dotenv('token.env')
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -7,7 +12,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def main():
-    application = Application.builder().token('7207211741:AAGStHm1qskhdyDypOa_dJc_Sd00BDLBq74').build()
+    application = Application.builder().token(os.getenv('token')).build()
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
     application.run_polling()
